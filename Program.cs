@@ -1,0 +1,1 @@
+﻿BenchmarkDotNet.Running.BenchmarkRunner.Run<Argon2Benckmarks.Benchmarks>();
