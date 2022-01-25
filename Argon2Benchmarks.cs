@@ -17,15 +17,21 @@ namespace Argon2Benckmarks
         }
 
         [Benchmark]
-        public byte[] KonsciousPasswordHash() => KonsciousGenerator.GetPasswordHash(_passwordBytes, _salt);
+        public byte[] KonsciousPasswordHash_DataDependentAddressing() => KonsciousGenerator.GetPasswordHash_DataDependentAddressing(_passwordBytes, _salt);
 
         [Benchmark]
-        public byte[] IsopohPasswordHash_HybridAddressing() => IsopohGenerator.GetPasswordHash(_passwordBytes, _salt, Argon2Type.HybridAddressing);
+        public byte[] KonsciousPasswordHash_DataIndependentAddressing() => KonsciousGenerator.GetPasswordHash_DataIndependentAddressing(_passwordBytes, _salt);
+
+        [Benchmark]
+        public byte[] KonsciousPasswordHash_HybridAddressing() => KonsciousGenerator.GetPasswordHash_HybridAddressing(_passwordBytes, _salt);
 
         [Benchmark]
         public byte[] IsopohPasswordHash_DataDependentAddressing() => IsopohGenerator.GetPasswordHash(_passwordBytes, _salt, Argon2Type.DataDependentAddressing);
 
         [Benchmark]
         public byte[] IsopohPasswordHash_DataIndependentAddressing() => IsopohGenerator.GetPasswordHash(_passwordBytes, _salt, Argon2Type.DataIndependentAddressing);
+
+        [Benchmark]
+        public byte[] IsopohPasswordHash_HybridAddressing() => IsopohGenerator.GetPasswordHash(_passwordBytes, _salt, Argon2Type.HybridAddressing);
     }
 }
