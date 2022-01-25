@@ -6,7 +6,7 @@ namespace Argon2Benckmarks
     {
         public static byte[] GetPasswordHash(byte[] passwordBytes, byte[] salt)
         {
-            var argon2 = new Argon2id(passwordBytes)
+            var argon2 = new Argon2i(passwordBytes)
             {
                 Salt = salt,
                 DegreeOfParallelism = Constants.DegreeOfParallelism,
@@ -15,7 +15,7 @@ namespace Argon2Benckmarks
                 KnownSecret = Constants.KnownSecret,
                 AssociatedData = Constants.AssociatedDate,
             };
-            return argon2.GetBytes(64);
+            return argon2.GetBytes(Constants.HashLength);
         }
     }
 }
