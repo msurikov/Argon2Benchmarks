@@ -11,19 +11,26 @@ namespace Argon2Benckmarks
 
         public Benchmarks()
         {
-            _passwordBytes = System.Text.Encoding.UTF8.GetBytes("password1");
+            _passwordBytes = System.Text.Encoding.UTF8.GetBytes("Enough long password with special characters like !@#$%^&*() and digits 0123456789 for benchmark");
             _salt = new byte[64];
             new Random().NextBytes(_salt);
         }
 
         // [Benchmark]
-        // public byte[] SHA1PasswordHash() => SHA1CryptoService.GetPasswordHash(_passwordBytes, _salt);
+        // public byte[] SHA1() => SHA1CryptoService.GetPasswordHash(_passwordBytes, _salt);
 
-        // [Benchmark]
-        // public byte[] Blake2PasswordHash() => Blake2Hasher.GetPasswordHash(_passwordBytes, _salt);
+        [Benchmark]
+        public byte[] PBKDF2_1000() => PBKDF2Hasher.GetPasswordHash(_passwordBytes, _salt, iterations: 1000);
 
-        // [Benchmark]
-        // public byte[] Blake3PasswordHash() => Blake3Hasher.GetPasswordHash(_passwordBytes, _salt);
+        [Benchmark]
+        public byte[] PBKDF2_10000() => PBKDF2Hasher.GetPasswordHash(_passwordBytes, _salt, iterations: 10000);
+
+        [Benchmark]
+        public byte[] PBKDF2_100000() => PBKDF2Hasher.GetPasswordHash(_passwordBytes, _salt, iterations: 100000);
+
+        [Benchmark]
+        public byte[] PBKDF2_310000() => PBKDF2Hasher.GetPasswordHash(_passwordBytes, _salt, iterations: 310000);
+
 
         [Benchmark]
         public byte[] Konscious_Argon2d() => KonsciousGenerator.GetPasswordHash_DataDependentAddressing(_passwordBytes, _salt);
@@ -34,9 +41,6 @@ namespace Argon2Benckmarks
         [Benchmark]
         public byte[] Konscious_Argon2id() => KonsciousGenerator.GetPasswordHash_HybridAddressing(_passwordBytes, _salt);
 
-        // [Benchmark]
-        // public byte[] Konscious_Blake2B() => KonsciousBlake2B.GetPasswordHash(_passwordBytes, _salt);
-
         [Benchmark]
         public byte[] Isopoh_Argon2d() => IsopohGenerator.GetPasswordHash(_passwordBytes, _salt, Argon2Type.DataDependentAddressing);
 
@@ -45,8 +49,5 @@ namespace Argon2Benckmarks
 
         [Benchmark]
         public byte[] Isopoh_Argon2id() => IsopohGenerator.GetPasswordHash(_passwordBytes, _salt, Argon2Type.HybridAddressing);
-
-        // [Benchmark]
-        // public byte[] Isopoh_Blake2B() => IsopohBlake2B.GetPasswordHash(_passwordBytes, _salt);
     }
 }
