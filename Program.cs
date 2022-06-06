@@ -1,7 +1,7 @@
 ﻿using BenchmarkDotNet.Configs;
 using BenchmarkDotNet.Running;
 
-BenchmarkRunner.Run<Argon2Benckmarks.Benchmarks>(
+BenchmarkRunner.Run<HasAlgorithmBenckmarks.Benchmarks>(
     ManualConfig
         .Create(DefaultConfig.Instance)
         //.WithOptions(ConfigOptions.DisableOptimizationsValidator)

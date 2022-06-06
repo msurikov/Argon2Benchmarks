@@ -1,6 +1,6 @@
 using Isopoh.Cryptography.Argon2;
 
-namespace Argon2Benckmarks
+namespace HasAlgorithmBenckmarks
 {
     public class IsopohGenerator
     {

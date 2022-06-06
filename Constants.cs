@@ -1,4 +1,4 @@
-namespace Argon2Benckmarks
+namespace HasAlgorithmBenckmarks
 {
     public static class Constants
     {

@@ -1,7 +1,8 @@
 using BenchmarkDotNet.Attributes;
 using Isopoh.Cryptography.Argon2;
+using Norgerman.Cryptography.Scrypt;
 
-namespace Argon2Benckmarks
+namespace HasAlgorithmBenckmarks
 {
     [MemoryDiagnoser]
     public class Benchmarks
@@ -16,8 +17,44 @@ namespace Argon2Benckmarks
             new Random().NextBytes(_salt);
         }
 
-        // [Benchmark]
-        // public byte[] SHA1() => SHA1CryptoService.GetPasswordHash(_passwordBytes, _salt);
+        [Benchmark]
+        public byte[] SHA1() => HashAlgorithmCryptoService.GetPasswordHash(_passwordBytes, _salt, "SHA1");
+
+        [Benchmark]
+        public byte[] SHA256() => HashAlgorithmCryptoService.GetPasswordHash(_passwordBytes, _salt, "SHA256");
+
+        [Benchmark]
+        public byte[] SHA384() => HashAlgorithmCryptoService.GetPasswordHash(_passwordBytes, _salt, "SHA384");
+
+        [Benchmark]
+        public byte[] SHA512() => HashAlgorithmCryptoService.GetPasswordHash(_passwordBytes, _salt, "SHA512");
+
+        [Benchmark]
+        public byte[] SCrypt_16384_8_1() => ScryptUtil.Scrypt(_passwordBytes, _salt, 16384, 8, 1, Constants.HashLength);
+
+        [Benchmark]
+        public byte[] SCrypt_16384_8_2() => ScryptUtil.Scrypt(_passwordBytes, _salt, 16384, 8, 2, Constants.HashLength);
+
+        [Benchmark]
+        public byte[] SCrypt_16384_8_4() => ScryptUtil.Scrypt(_passwordBytes, _salt, 16384, 8, 4, Constants.HashLength);
+
+        [Benchmark]
+        public byte[] SCrypt_32768_8_1() => ScryptUtil.Scrypt(_passwordBytes, _salt, 32768, 8, 1, Constants.HashLength);
+
+        [Benchmark]
+        public byte[] SCrypt_32768_8_2() => ScryptUtil.Scrypt(_passwordBytes, _salt, 32768, 8, 2, Constants.HashLength);
+
+        [Benchmark]
+        public byte[] SCrypt_32768_8_4() => ScryptUtil.Scrypt(_passwordBytes, _salt, 32768, 8, 4, Constants.HashLength);
+
+        [Benchmark]
+        public byte[] SCrypt_65536_8_1() => ScryptUtil.Scrypt(_passwordBytes, _salt, 65536, 8, 1, Constants.HashLength);
+
+        [Benchmark]
+        public byte[] SCrypt_65536_8_2() => ScryptUtil.Scrypt(_passwordBytes, _salt, 65536, 8, 2, Constants.HashLength);
+
+        [Benchmark]
+        public byte[] SCrypt_65536_8_4() => ScryptUtil.Scrypt(_passwordBytes, _salt, 65536, 8, 4, Constants.HashLength);
 
         [Benchmark]
         public byte[] PBKDF2_1000() => PBKDF2Hasher.GetPasswordHash(_passwordBytes, _salt, iterations: 1000);
@@ -30,7 +67,6 @@ namespace Argon2Benckmarks
 
         [Benchmark]
         public byte[] PBKDF2_310000() => PBKDF2Hasher.GetPasswordHash(_passwordBytes, _salt, iterations: 310000);
-
 
         [Benchmark]
         public byte[] Konscious_Argon2d() => KonsciousGenerator.GetPasswordHash_DataDependentAddressing(_passwordBytes, _salt);

@@ -1,6 +1,6 @@
 using Konscious.Security.Cryptography;
 
-namespace Argon2Benckmarks
+namespace HasAlgorithmBenckmarks
 {
     public class KonsciousGenerator
     {
